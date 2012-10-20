@@ -19,4 +19,5 @@
     <instrumentation android:name="com.michaelnovakjr.numberpicker.JUnitInstrumentationRunner"
                      android:targetPackage="com.michaelnovakjr.numberpicker.tests"
                      android:label="Tests for libNumberPicker" />
+    <uses-sdk android:targetSdkVersion="16" android:minSdkVersion="10"/>
 </manifest>

@@ -10,4 +10,5 @@
         android:xlargeScreens="true"
         android:normalScreens="true"
         android:smallScreens="true" />
+    <uses-sdk android:targetSdkVersion="16" android:minSdkVersion="10"/>
 </manifest>
