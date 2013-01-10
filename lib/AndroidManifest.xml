@@ -5,8 +5,8 @@
       android:versionName="1.0">
 
     <uses-sdk
-        android:minSdkVersion="3"
-        android:targetSdkVersion="15" />
+        android:minSdkVersion="10"
+        android:targetSdkVersion="16" />
 
     <supports-screens
         android:anyDensity="true"
@@ -14,5 +14,4 @@
         android:xlargeScreens="true"
         android:normalScreens="true"
         android:smallScreens="true" />
-    <uses-sdk android:targetSdkVersion="16" android:minSdkVersion="10"/>
 </manifest>
