@@ -48,6 +48,7 @@ public class NumberPickerDialog extends AlertDialog implements OnClickListener {
     }
 
     public void onClick(DialogInterface dialog, int which) {
+        mNumberPicker.hideKeyboardAndVaridate();
         if (mListener != null) {
             mListener.onNumberSet(mNumberPicker.getCurrent());
         }
