@@ -1,6 +1,7 @@
 package com.michaelnovakjr.numberpicker;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
@@ -57,6 +58,12 @@ public class NumberPickerPreference extends DialogPreference {
                 saveValue(curValue);
             }
         }
+    }
+    
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        mPicker.hideKeyboardAndVaridate();
+        super.onClick(dialog, which);
     }
 
     public void setRange(int start, int end) {
