@@ -461,7 +461,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         return mCurrent;
     }
 
-    public void hideKeyboardAndVaridate() {
+    public void hideKeyboardAndValidate() {
         InputMethodManager imm =
                 (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(mText.getWindowToken(), 0);
