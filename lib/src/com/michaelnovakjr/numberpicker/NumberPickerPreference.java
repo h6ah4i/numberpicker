@@ -62,7 +62,7 @@ public class NumberPickerPreference extends DialogPreference {
     
     @Override
     public void onClick(DialogInterface dialog, int which) {
-        mPicker.hideKeyboardAndVaridate();
+        mPicker.hideKeyboardAndValidate();
         super.onClick(dialog, which);
     }
 
