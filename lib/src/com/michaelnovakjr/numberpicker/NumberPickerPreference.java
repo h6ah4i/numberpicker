@@ -12,6 +12,7 @@ public class NumberPickerPreference extends DialogPreference {
     private int mStartRange;
     private int mEndRange;
     private int mDefault;
+    private String mUnitsText;
 
     public NumberPickerPreference(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -24,7 +25,8 @@ public class NumberPickerPreference extends DialogPreference {
         mStartRange = arr.getInteger(R.styleable.numberpicker_startRange, 0);
         mEndRange = arr.getInteger(R.styleable.numberpicker_endRange, 200);
         mDefault = arr.getInteger(R.styleable.numberpicker_defaultValue, 0);
-
+        mUnitsText = arr.getString(R.styleable.numberpicker_unitsText);
+        
         arr.recycle();
 
         setDialogLayoutResource(R.layout.pref_number_picker);
@@ -44,6 +46,7 @@ public class NumberPickerPreference extends DialogPreference {
         mPicker = (NumberPicker) view.findViewById(R.id.pref_num_picker);
         mPicker.setRange(mStartRange, mEndRange);
         mPicker.setCurrent(getValue());
+        mPicker.setUnitsText(mUnitsText);
     }
 
     @Override

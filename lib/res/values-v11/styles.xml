@@ -62,4 +62,14 @@
         <item name="android:textSize">18sp</item>
         <item name="android:background">@null</item>
     </style>
+
+    <style name="NumberPickerUnitsText" parent="@android:style/Widget.Holo.TextView">
+        <item name="android:paddingRight">32dip</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:background">@null</item>
+        <item name="android:focusable">false</item>
+        <item name="android:visibility">gone</item>
+    </style>
 </resources>

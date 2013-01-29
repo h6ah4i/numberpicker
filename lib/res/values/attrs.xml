@@ -23,6 +23,7 @@
         <attr name="defaultValue" format="integer" />
         <attr name="maxValue" format="integer" />
         <attr name="wrap" format="boolean" />
+        <attr name="unitsText" format="string|reference" />
     </declare-styleable>
 
     <!-- NumberPicker style. -->

@@ -22,6 +22,7 @@ import android.os.Handler;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.method.NumberKeyListener;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -93,6 +94,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     };
 
     private final EditText mText;
+    private final TextView mUnits;
     private final InputFilter mNumberInputFilter;
 
     private String[] mDisplayedValues;
@@ -138,6 +140,9 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         mText.setOnFocusChangeListener(this);
         mText.setOnEditorActionListener(this);
         mText.setFilters(new InputFilter[] {inputFilter});
+        
+        mUnits = (TextView) findViewById(R.id.numpicker_units);
+        mUnits.setOnClickListener(this);
 
         if (!isEnabled()) {
             setEnabled(false);
@@ -146,6 +151,8 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         TypedArray a = context.obtainStyledAttributes( attrs, R.styleable.numberpicker );
         
         mWrap = a.getBoolean( R.styleable.numberpicker_wrap, DEFAULT_WRAP );
+        
+        String unitsText = a.getString( R.styleable.numberpicker_unitsText );
         
         int start = a.getInt( R.styleable.numberpicker_startRange, DEFAULT_MIN );
         int end = a.getInt( R.styleable.numberpicker_endRange, DEFAULT_MAX );
@@ -161,6 +168,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         }
         setRangeInternal(start, end);
         setCurrentInternal(constrain(current, start, end));
+        setUnitsTextInternal(unitsText);
         updateTextInputType();
         updateView();
     }
@@ -171,6 +179,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         mIncrementButton.setEnabled(enabled);
         mDecrementButton.setEnabled(enabled);
         mText.setEnabled(enabled);
+        mUnits.setEnabled(enabled);
     }
 
     public void setOnChangeListener(OnChangedListener listener) {
@@ -253,6 +262,27 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         if (mEnd < current) throw new IllegalArgumentException("Current value cannot be greater than the range end.");
         mCurrent = current;
     }
+    
+    /**
+     * Set the units for the numbers.
+     * 
+     * @param text  Units for the numbers
+     */
+    public void setUnitsText(CharSequence text) {
+        setUnitsTextInternal(text);
+    }
+    
+    private void setUnitsTextInternal(CharSequence text) {
+        text = TextUtils.isEmpty(text) ? null : text;
+        mUnits.setText(text);
+        mUnits.setVisibility((text == null) ? View.GONE : View.VISIBLE);
+    }
+    
+    public CharSequence getUnitsText() {
+        CharSequence text = mUnits.getText();
+        text = (TextUtils.isEmpty(text)) ? null : text;
+        return text;
+    }
 
     /**
      * The speed (in milliseconds) at which the numbers will scroll
@@ -271,6 +301,12 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
             changeCurrent(mCurrent + 1);
         } else if (R.id.decrement == v.getId()) {
             changeCurrent(mCurrent - 1);
+        }
+        
+        // show keyboard if units text clicked
+        if (R.id.numpicker_units == v.getId()) {
+            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(mText, InputMethodManager.SHOW_IMPLICIT);
         }
     }
 

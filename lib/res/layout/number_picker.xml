@@ -25,10 +25,23 @@
         android:layout_height="wrap_content"
         style="@style/NumberPickerUpButton" />
 
-    <EditText android:id="@+id/numpicker_input"
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        style="@style/NumberPickerInputText" />
+        android:layout_height="wrap_content" >
+        
+        <EditText android:id="@+id/numpicker_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/NumberPickerInputText" />
+
+        <TextView android:id="@+id/numpicker_units"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignRight="@+id/numpicker_input"
+            style="@style/NumberPickerUnitsText" />
+
+    </RelativeLayout>
 
     <com.michaelnovakjr.numberpicker.NumberPickerButton android:id="@+id/decrement"
         android:layout_width="fill_parent"
