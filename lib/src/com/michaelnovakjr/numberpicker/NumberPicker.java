@@ -37,6 +37,8 @@ import android.widget.LinearLayout;
 import android.widget.EditText;
 import android.widget.TextView.OnEditorActionListener;
 
+import java.util.Locale;
+
 /**
  * This class has been pulled from the Android platform source code, its an internal widget that hasn't been
  * made public so its included in the project in this fashion for use with the preferences screen; I have made
@@ -72,6 +74,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
                 final StringBuilder mBuilder = new StringBuilder();
                 final java.util.Formatter mFmt = new java.util.Formatter(mBuilder);
                 final Object[] mArgs = new Object[1];
+                @Override
                 public String toString(int value) {
                     mArgs[0] = value;
                     mBuilder.delete(0, mBuilder.length());
@@ -82,6 +85,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
     private final Handler mHandler;
     private final Runnable mRunnable = new Runnable() {
+        @Override
         public void run() {
             if (mIncrement) {
                 changeCurrent(mCurrent + 1);
@@ -292,6 +296,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         mSpeed = speed;
     }
 
+    @Override
     public void onClick(View v) {
         validateInput(mText);
         if (!mText.hasFocus()) mText.requestFocus();
@@ -375,6 +380,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         updateView();
     }
 
+    @Override
     public void onFocusChange(View v, boolean hasFocus) {
 
         /* When focus is lost check that the text field
@@ -411,6 +417,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
      * We start the long click here but rely on the {@link NumberPickerButton}
      * to inform us when the long click has ended.
      */
+    @Override
     public boolean onLongClick(View v) {
 
         /* The text view may still have focus so clear it's focus which will
@@ -449,6 +456,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     private NumberPickerButton mDecrementButton;
 
     private class NumberPickerInputFilter implements InputFilter {
+        @Override
         public CharSequence filter(CharSequence source, int start, int end,
                                    Spanned dest, int dstart, int dend) {
             if (mDisplayedValues == null) {
@@ -458,9 +466,9 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
             String result = String.valueOf(dest.subSequence(0, dstart))
                     + filtered
                     + dest.subSequence(dend, dest.length());
-            String str = String.valueOf(result).toLowerCase();
+            String str = String.valueOf(result).toLowerCase(Locale.US);
             for (String val : mDisplayedValues) {
-                val = val.toLowerCase();
+                val = val.toLowerCase(Locale.US);
                 if (val.startsWith(str)) {
                     return filtered;
                 }
@@ -584,8 +592,8 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
             for (int i = 0; i < mDisplayedValues.length; i++) {
 
                 /* Don't force the user to type in jan when ja will do */
-                str = str.toLowerCase();
-                if (mDisplayedValues[i].toLowerCase().startsWith(str)) {
+                str = str.toLowerCase(Locale.US);
+                if (mDisplayedValues[i].toLowerCase(Locale.US).startsWith(str)) {
                     return mStart + i;
                 }
             }
