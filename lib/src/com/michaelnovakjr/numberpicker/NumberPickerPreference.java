@@ -26,7 +26,7 @@ public class NumberPickerPreference extends DialogPreference {
         mEndRange = arr.getInteger(R.styleable.numberpicker_endRange, 200);
         mDefault = arr.getInteger(R.styleable.numberpicker_defaultValue, 0);
         mUnitsText = arr.getString(R.styleable.numberpicker_unitsText);
-        
+
         arr.recycle();
 
         setDialogLayoutResource(R.layout.pref_number_picker);

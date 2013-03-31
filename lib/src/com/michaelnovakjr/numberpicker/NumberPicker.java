@@ -144,7 +144,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         mText.setOnFocusChangeListener(this);
         mText.setOnEditorActionListener(this);
         mText.setFilters(new InputFilter[] {inputFilter});
-        
+
         mUnits = (TextView) findViewById(R.id.numpicker_units);
         mUnits.setOnClickListener(this);
 
@@ -154,9 +154,9 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
         TypedArray a = context.obtainStyledAttributes( attrs, R.styleable.numberpicker );
         
-        mWrap = a.getBoolean( R.styleable.numberpicker_wrap, DEFAULT_WRAP );
-        
         String unitsText = a.getString( R.styleable.numberpicker_unitsText );
+        
+        mWrap = a.getBoolean( R.styleable.numberpicker_wrap, DEFAULT_WRAP );
         
         int start = a.getInt( R.styleable.numberpicker_startRange, DEFAULT_MIN );
         int end = a.getInt( R.styleable.numberpicker_endRange, DEFAULT_MAX );
@@ -172,6 +172,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         }
         setRangeInternal(start, end);
         setCurrentInternal(constrain(current, start, end));
+
         setUnitsTextInternal(unitsText);
         updateTextInputType();
         updateView();
@@ -234,7 +235,11 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         if (end < start) throw new IllegalArgumentException("End value cannot be less than the start value.");
         mStart = start;
         mEnd = end;
-        mCurrent = start;
+        if (mCurrent < start) {
+            mCurrent = start;
+        } else if (mCurrent > end) {
+            mCurrent = end;
+        }
         mNumMaxDigitChars = Integer.toString(Math.max(Math.abs(mStart), Math.abs(mEnd))).length();
         updateTextInputType();
     }
